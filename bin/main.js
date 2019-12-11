@@ -4,8 +4,9 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:32:12
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-11 15:29:55
+ * @LastEditTime: 2019-12-11 16:43:49
  */
+process.env.NODE_PATH = __dirname + "/../node_modules";
 const { resolve } = require("path");
 const res = command => resolve(__dirname, "../commands/", command);
 const program = require("commander");
@@ -29,7 +30,6 @@ program
 program.parse(process.argv);
 
 // 判断终端上输入出来bin中的命令是否还有其他值，如果没有终端会直接输出help
-
 if (typeof process.argv === "undefined" || process.argv.length === 0) {
     program.help();
 }

@@ -3,7 +3,7 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:34:12
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-11 16:24:44
+ * @LastEditTime: 2019-12-11 16:44:22
  */
 const inquirer = require("inquirer");
 const program = require("commander");
@@ -68,6 +68,16 @@ const questionList = [
         }
     }
 ]
+// 生成项目目录
+fs.mkdir(defaultName, err => {
+    if (err) {
+        console.log("项目目录生成失败")
+    }
+});
+(async () => {
+    const answers = await inquirer.prompt(questionList);
+    console.log("answers", answers);
+})();
 
     // 根据用户选择的语言去配置对应的配置文件
     // inquirer.prompt(questionList).then(answers => {
@@ -106,7 +116,3 @@ const questionList = [
     //         });
     //     }
     // });
-    (async () => {
-        const answers = await inquirer.prompt(questionList);
-        console.log("answers", answers);
-    })
