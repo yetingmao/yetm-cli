@@ -3,15 +3,15 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:28:56
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-11 14:50:40
+ * @LastEditTime: 2019-12-11 16:14:54
  -->
 ### 项目架构
 
 ##### node.js
-##### commander.js (命令行参数处理模块)
+##### <a href="https://github.com/tj/commander.js/blob/master/Readme_zh-CN.md">commander.js</a> (命令行参数处理模块)
 ##### chalk （输出字体颜色模块）
 ##### download-git-repo  (下载并提取 git 仓库，用于下载项目模板)
-##### Inquirer.js (通用的命令行用户界面集合，用于和用户进行交互。)
+##### <a href="https://github.com/SBoudrias/Inquirer.js">Inquirer.js</a> (通用的命令行用户界面集合，用于和用户进行交互。)
 ##### ora (下载过程久的话，可以用于显示下载中的动画效果)
 ---
 ###  项目结构
