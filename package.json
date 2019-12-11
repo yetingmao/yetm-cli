@@ -1,0 +1,32 @@
+{
+  "name": "yetm-cli",
+  "version": "0.0.1",
+  "description": "webcli",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "yetm-cli": "./bin/main.js"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yetingmao/yetm-cli.git"
+  },
+  "author": "yetm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yetingmao/yetm-cli/issues"
+  },
+  "homepage": "https://github.com/yetingmao/yetm-cli#readme",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "commander": "^4.0.1",
+    "download-git-repo": "^3.0.2",
+    "inquirer": "^7.0.0",
+    "ora": "^4.0.3"
+  }
+}
