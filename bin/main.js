@@ -4,7 +4,7 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:32:12
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-11 17:27:33
+ * @LastEditTime: 2019-12-11 17:29:50
  */
 process.env.NODE_PATH = __dirname + "/../node_modules";
 const { resolve } = require("path");
@@ -30,6 +30,6 @@ program
 program.parse(process.argv);
 
 // 判断终端上输入出来bin中的命令是否还有其他值，如果没有终端会直接输出help
-if (typeof process.argv === "undefined" || process.argv.length || !process.argv.some(item => ["list"].includes(item))) {
+if (typeof process.argv === "undefined" || process.argv.length <= 2 || !process.argv.some(item => ["init", "i"].includes(item))) {
     program.help();
 }
