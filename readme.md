@@ -3,7 +3,7 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:28:56
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-11 16:14:54
+ * @LastEditTime: 2019-12-13 18:40:29
  -->
 ### 项目架构
 
@@ -23,4 +23,13 @@
 └── package.json    //项目说明
 └── readme.md   //此文件
 └── yarn.lock   //lock
+```
+---
+###  项目使用
+```
+npm install -g yetm-cli
+
+yetmcli -V 
+        -h
+yetmcli init | i 创建项目
 ```
