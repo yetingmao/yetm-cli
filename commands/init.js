@@ -3,7 +3,7 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:34:12
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-13 10:27:03
+ * @LastEditTime: 2019-12-13 10:31:46
  */
 const inquirer = require("inquirer");
 const program = require("commander");
@@ -12,7 +12,7 @@ const ora = require("ora");
 const spinner = ora("Downloading please wait......");
 const fs = require("fs");
 const path = require("path");
-const { clone } = require("../utils");
+const unils = require("../utils");
 const questionList = [
     {
         type: 'input',
@@ -77,7 +77,7 @@ const go = (async () => {
             console.log("项目目录生成失败")
         }
     });
-    console.log("clone======================>", clone);
+    console.log("clone======================>", unils);
     clone(frame, projectName, (err) => {
         if (err) {
             spinner.stop();
