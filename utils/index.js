@@ -3,7 +3,7 @@
  * @Autor: yetm
  * @Date: 2019-12-11 17:21:31
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-13 10:22:16
+ * @LastEditTime: 2019-12-13 11:22:00
  */
 const download = require("download-git-repo");
 
@@ -12,6 +12,6 @@ function clone(frame, projectName, fc) {
         fc(err);
     });
 }
-exports = {
+modules.exports = {
     clone
 }
