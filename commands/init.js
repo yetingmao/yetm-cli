@@ -3,7 +3,7 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:34:12
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-11 16:44:22
+ * @LastEditTime: 2019-12-13 09:57:37
  */
 const inquirer = require("inquirer");
 const program = require("commander");
@@ -18,7 +18,7 @@ const defaultName = typeof option === "string" ? option : "My-project";
 const questionList = [
     {
         type: 'input',
-        name: 'Project name',
+        name: 'projectName',
         message: 'Project name',
         default: defaultName,
         filter(val) {
@@ -55,29 +55,41 @@ const questionList = [
         }
     }, {
         type: "list",
-        name: "program type",
-        message: "program type",
+        name: "frame",
+        message: "frame",
         choices: [
-            "Nodejs",
-            "Typescript",
-            "Python"
+            "react-antd-dva",
+            "vue-viewDesign-vuex",
         ],
-        default: "nodejs",
+        default: "react-antd-dva",
         filter: function (val) {
             return val.toLowerCase();
         }
     }
 ]
-// 生成项目目录
-fs.mkdir(defaultName, err => {
-    if (err) {
-        console.log("项目目录生成失败")
-    }
-});
-(async () => {
-    const answers = await inquirer.prompt(questionList);
-    console.log("answers", answers);
-})();
+    // 生成项目目录
+    // fs.mkdir(defaultName, err => {
+    //     if (err) {
+    //         console.log("项目目录生成失败")
+    //     }
+    // });
+    (async () => {
+        spinner.start();
+        const answers = await inquirer.prompt(questionList);
+        console.log("answers", answers);
+        const { projectName, description, author, frame } = answers;
+        if (frame === "react-antd-dva") {
+            download("direct:https://github.com/yetingmao/umi_dva", projectName, { clone: true }, (err) => {
+                if (err) {
+                    spinner.stop();
+                    console.log(err)
+                } else {
+                    spinner.stop();
+                    console.log(chalk.red("项目初始化成功"));
+                }
+            });
+        }
+    })();
 
     // 根据用户选择的语言去配置对应的配置文件
     // inquirer.prompt(questionList).then(answers => {
