@@ -3,7 +3,7 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:34:12
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-13 10:31:46
+ * @LastEditTime: 2019-12-13 11:31:35
  */
 const inquirer = require("inquirer");
 const program = require("commander");
@@ -11,8 +11,9 @@ const chalk = require("chalk");
 const ora = require("ora");
 const spinner = ora("Downloading please wait......");
 const fs = require("fs");
+const fsPromises = fs.promises;
 const path = require("path");
-const unils = require("../utils");
+const { clone } = require("../utils");
 const questionList = [
     {
         type: 'input',
@@ -72,12 +73,7 @@ const go = (async () => {
     spinner.start();
     const { projectName, description, author, frame } = answers;
     // 生成项目目录
-    fs.mkdir(projectName, err => {
-        if (err) {
-            console.log("项目目录生成失败")
-        }
-    });
-    console.log("clone======================>", unils);
+    await fsPromises.mkdir(projectName, {});
     clone(frame, projectName, (err) => {
         if (err) {
             spinner.stop();
