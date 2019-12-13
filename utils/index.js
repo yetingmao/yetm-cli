@@ -3,10 +3,15 @@
  * @Autor: yetm
  * @Date: 2019-12-11 17:21:31
  * @LastEditors: yetm
- * @LastEditTime: 2019-12-11 17:24:00
+ * @LastEditTime: 2019-12-13 10:22:16
  */
-export function have(arr) {
-    return arr.some((item) => {
-        return ["list"].includes(item)
+const download = require("download-git-repo");
+
+function clone(frame, projectName, fc) {
+    download(`direct:https://github.com/yetingmao/${frame}`, projectName, { clone: true }, (err) => {
+        fc(err);
     });
+}
+exports = {
+    clone
 }
