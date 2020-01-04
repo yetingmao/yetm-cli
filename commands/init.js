@@ -2,24 +2,29 @@
  * @Description: 命令代码
  * @Autor: yetm
  * @Date: 2019-12-11 14:34:12
- * @LastEditors: yetm
- * @LastEditTime: 2019-12-13 11:31:35
+ * @LastEditors  : yetm
+ * @LastEditTime : 2020-01-04 18:48:50
  */
 const inquirer = require("inquirer");
-const program = require("commander");
 const chalk = require("chalk");
 const ora = require("ora");
 const spinner = ora("Downloading please wait......");
 const fs = require("fs");
 const fsPromises = fs.promises;
-const path = require("path");
-const { clone } = require("../utils");
+const { resolve } = require("path");
+const { clone, change } = require("../utils");
+const DEFAULT_PROP = {
+    name: "my project",
+    version: "0.0.1",
+    description: "my new project",
+    author: "yetm",
+};
 const questionList = [
     {
         type: 'input',
-        name: 'projectName',
-        message: 'Project name',
-        default: "newProject",
+        name: 'name',
+        message: '项目名',
+        default: DEFAULT_PROP.name,
         filter(val) {
             return val.trim()
         },
@@ -32,9 +37,23 @@ const questionList = [
         }
     }, {
         type: 'input',
+        name: 'version',
+        message: '版本号',
+        default: DEFAULT_PROP.version,
+        filter(val) {
+            return val.trim()
+        },
+        validate(val) {
+            return true;
+        },
+        transformer(val) {
+            return chalk.blue(val);
+        }
+    }, {
+        type: 'input',
         name: 'description',
-        message: 'Project description',
-        default: 'My project',
+        message: '描述',
+        default: DEFAULT_PROP.description,
         validate(val) {
             return true;
         },
@@ -44,8 +63,8 @@ const questionList = [
     }, {
         type: 'input',
         name: 'author',
-        message: 'Author',
-        default: 'project author',
+        message: '作者',
+        default: DEFAULT_PROP.author,
         validate(val) {
             return true;
         },
@@ -69,19 +88,29 @@ const questionList = [
 
 
 const go = (async () => {
-    const answers = await inquirer.prompt(questionList);
-    spinner.start();
-    const { projectName, description, author, frame } = answers;
-    // 生成项目目录
-    await fsPromises.mkdir(projectName, {});
-    clone(frame, projectName, (err) => {
-        if (err) {
-            spinner.stop();
-            console.log(err)
-        } else {
-            spinner.stop();
-            console.log(chalk.red("项目初始化成功"));
-        }
-    });
+    let errInfo = "";
+    try {
+        const answers = await inquirer.prompt(questionList);
+        spinner.start();
+        const { name, frame } = answers;
+        // 生成项目目录
+        await fsPromises.mkdir(name, {});
+        clone(frame, name, async (err) => {
+            if (err) {
+                spinner.stop();
+                throw errInfo;
+            } else {
+                spinner.stop();
+                //修改package文件
+                const packageJsonUrl = resolve(__dirname, `../${name}/package.json`);
+                const packageString = await fsPromises.readFile(packageJsonUrl);
+                const updatedPackageString = change(packageString, answers, DEFAULT_PROP);
+                await fsPromises.writeFile(packageJsonUrl, updatedPackageString);
+                console.log(chalk.blue("项目初始化成功"));
+            }
+        });
+    } catch (error) {
+        throw error;
+    }
 });
 go();
