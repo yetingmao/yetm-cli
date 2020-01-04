@@ -3,7 +3,7 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:34:12
  * @LastEditors  : yetm
- * @LastEditTime : 2020-01-04 18:48:50
+ * @LastEditTime : 2020-01-04 19:20:46
  */
 const inquirer = require("inquirer");
 const chalk = require("chalk");
@@ -11,7 +11,7 @@ const ora = require("ora");
 const spinner = ora("Downloading please wait......");
 const fs = require("fs");
 const fsPromises = fs.promises;
-const { resolve } = require("path");
+const { normalize } = require("path");
 const { clone, change } = require("../utils");
 const DEFAULT_PROP = {
     name: "my project",
@@ -102,7 +102,7 @@ const go = (async () => {
             } else {
                 spinner.stop();
                 //修改package文件
-                const packageJsonUrl = resolve(__dirname, `../${name}/package.json`);
+                const packageJsonUrl = normalize(`${process.cwd()}/${name}/package.json`);
                 const packageString = await fsPromises.readFile(packageJsonUrl);
                 const updatedPackageString = change(packageString, answers, DEFAULT_PROP);
                 await fsPromises.writeFile(packageJsonUrl, updatedPackageString);
