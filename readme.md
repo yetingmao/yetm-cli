@@ -2,8 +2,8 @@
  * @Description: readme
  * @Autor: yetm
  * @Date: 2019-12-11 14:28:56
- * @LastEditors: yetm
- * @LastEditTime: 2019-12-13 18:40:29
+ * @LastEditors  : yetm
+ * @LastEditTime : 2020-01-06 19:12:09
  -->
 ### 项目架构
 
@@ -16,7 +16,7 @@
 ---
 ###  项目结构
 ```
-── bin  //项目入口文件 
+├─── bin  //项目入口文件 
 ├── commands    //项目命令文件
 ├── node_modules    //包 
 ├── .editorconfig   //编辑格式
@@ -33,3 +33,5 @@ yetmcli -V
         -h
 yetmcli init | i 创建项目
 ```
+### 支持
+#### node版本>=10
