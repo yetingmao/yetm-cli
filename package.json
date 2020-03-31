@@ -1,6 +1,6 @@
 {
   "name": "yetm-cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "webcli",
   "main": "index.js",
   "scripts": {
