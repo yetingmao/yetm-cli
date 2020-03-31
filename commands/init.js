@@ -2,8 +2,8 @@
  * @Description: 命令代码
  * @Autor: yetm
  * @Date: 2019-12-11 14:34:12
- * @LastEditors  : yetm
- * @LastEditTime : 2020-01-04 19:20:46
+ * @LastEditors: yetm
+ * @LastEditTime: 2020-03-31 15:00:03
  */
 const inquirer = require("inquirer");
 const chalk = require("chalk");
@@ -14,7 +14,7 @@ const fsPromises = fs.promises;
 const { normalize } = require("path");
 const { clone, change } = require("../utils");
 const DEFAULT_PROP = {
-    name: "my project",
+    name: "my-project",
     version: "0.0.1",
     description: "my new project",
     author: "yetm",
@@ -74,30 +74,63 @@ const questionList = [
     }, {
         type: "list",
         name: "frame",
-        message: "frame",
+        message: "前端框架",
         choices: [
-            "react-antd-dva",
-            "vue-viewDesign-vuex",
+            // "react-antd-dva",
+            // "vue-viewDesign-vuex",
+            "react",
+            "vue",
         ],
-        default: "react-antd-dva",
+        default: "react",
         filter: function (val) {
             return val.toLowerCase();
         }
     }
 ]
-
+const frameList = {
+    vue: [{
+        type: "list",
+        name: "ui",
+        message: "UI框架",
+        choices: [
+            // "react-antd-dva",
+            // "vue-viewDesign-vuex",
+            "element",
+            "view-design",
+        ],
+        default: "view-design",
+        filter: function (val) {
+            return val.toLowerCase();
+        }
+    }],
+    react: [{
+        type: "list",
+        name: "ui",
+        message: "UI框架",
+        choices: [
+            "antd-desgin",
+        ],
+        default: "antd-desgin",
+        filter: function (val) {
+            return val.toLowerCase();
+        }
+    }]
+}
 
 const go = (async () => {
     let errInfo = "";
     try {
         const answers = await inquirer.prompt(questionList);
-        spinner.start();
         const { name, frame } = answers;
+        const { ui } = await inquirer.prompt(frameList[frame]);
+        const frameName = `${frame}-${ui}`;
+        spinner.start();
         // 生成项目目录
         await fsPromises.mkdir(name, {});
-        clone(frame, name, async (err) => {
+        clone(frameName, name, async (err) => {
             if (err) {
                 spinner.stop();
+                console.log("cloneerr==>", err);
                 throw errInfo;
             } else {
                 spinner.stop();

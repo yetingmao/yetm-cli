@@ -2,45 +2,32 @@
  * @Description: 通用工具方法
  * @Autor: yetm
  * @Date: 2019-12-11 17:21:31
- * @LastEditors  : yetm
- * @LastEditTime : 2020-01-04 18:48:12
+ * @LastEditors: yetm
+ * @LastEditTime: 2020-03-31 15:05:59
  */
 const download = require("download-git-repo");
 
 function clone(frame, projectName, fc) {
     let repository;
     switch (frame) {
-        case "react-antd-dva":
+        case "react-antd-desgin":
             repository = "umi_dva"
             break;
-        case "vue-viewdesign-vuex":
+        case "vue-view-design":
             repository = "vue_iview_vuex"
             break;
         default:
             break;
     }
+    if (!repository) {
+        fc("没有查找到相关项目");
+    }
     download(`direct:https://github.com/yetingmao/${repository}`, projectName, { clone: true }, (err) => {
         fc(err);
     });
 }
-function update(packageJson, key, defaultValue, value) {
-    let tempJson = { ...packageJson };
-    if (typeof tempJson[key] === "string") {
-        if (defaultValue !== value) {
-            tempJson[key] = value;
-        }
-    } else {
-        tempJson = { [key]: value, ...packageJson };
-    }
-    return tempJson;
-}
 function change(packageString, opt, DEFAULT) {
-    let packageJson = JSON.parse(packageString);
-    const { name, version, description, author } = DEFAULT;
-    packageJson = update(packageJson, "author", author, opt.author);
-    packageJson = update(packageJson, "description", description, opt.description);
-    packageJson = update(packageJson, "version", version, opt.version);
-    packageJson = update(packageJson, "name", name, opt.name);
+    const packageJson = Object.assign({}, DEFAULT, opt, JSON.parse(packageString));
     return JSON.stringify(packageJson);
 }
 module.exports = {
