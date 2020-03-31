@@ -3,7 +3,7 @@
  * @Autor: yetm
  * @Date: 2019-12-11 14:34:12
  * @LastEditors: yetm
- * @LastEditTime: 2020-03-31 15:00:03
+ * @LastEditTime: 2020-03-31 15:22:01
  */
 const inquirer = require("inquirer");
 const chalk = require("chalk");
@@ -93,9 +93,7 @@ const frameList = {
         name: "ui",
         message: "UI框架",
         choices: [
-            // "react-antd-dva",
-            // "vue-viewDesign-vuex",
-            "element",
+            //   "element",
             "view-design",
         ],
         default: "view-design",
